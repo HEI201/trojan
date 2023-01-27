@@ -128,7 +128,7 @@ function install_trojan() {
     green "======================="
     blue "请输入绑定到本VPS的域名"
     green "======================="
-    read your_domain
+    your_domain=$1
     real_addr=$(ping ${your_domain} -c 1 | sed '1{s/[^(]*(//;s/).*//;q}')
     local_addr=$(curl ipv4.icanhazip.com)
     if [ $real_addr == $local_addr ]; then
@@ -481,4 +481,9 @@ start_menu() {
     esac
 }
 
-start_menu
+# start_menu
+
+# 先安装 acme 客户端 原安装脚本的 acme 太旧了
+curl https://get.acme.sh | sh -s email=lianghengwei2011@163.com
+
+install_trojan "love2.vip"
